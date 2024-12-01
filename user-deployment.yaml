@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: job-portal-api-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-portal-api-user-label #This should be same label
+  template:
+    metadata:
+      labels:
+        app: job-portal-api-user-label #This should be same label
+    spec:
+      containers:
+        - name: job-portal-api-user-container
+          image: pdesaidocker/pd-job-portal-api-user
+          ports:
+            - containerPort: 8080 #port defined in image dockerfile
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              value: admin
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {}
+            - name: AWS_ACCESS_KEY
+              value: {}
+            - name: AWS_SECRET_KEY
+              value: {}
+            - name: AWS_S3_BUCKET_NAME
+              value: pdjobportal
+            - name: AWS_S3_REGION
+              value: ap-south-1
