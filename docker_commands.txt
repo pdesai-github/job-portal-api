@@ -1,0 +1,2 @@
+docker build -t pdesaidocker/pd-job-portal-api-user:v4 .
+docker push pdesaidocker/pd-job-portal-api-user:v4

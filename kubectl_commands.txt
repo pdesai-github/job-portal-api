@@ -1,0 +1,14 @@
+kubectl get deployments -n job-portal
+kubectl get services -n job-portal
+kubectl delete deployment job-portal-api-user -n job-portal
+kubectl delete service job-portal-api-user-service -n job-portal
+kubectl delete deployment job-portal-api-feeds -n job-portal
+kubectl delete service job-portal-api-feeds-service -n job-portal
+kubectl get deployments -n job-portal
+kubectl get services -n job-portal
+kubectl apply -f user-deployment.yaml -n job-portal
+kubectl apply -f user-service.yaml -n job-portal
+kubectl apply -f feeds/feeds-deployment.yaml -n job-portal
+kubectl apply -f feeds/feeds-service.yaml -n job-portal
+kubectl get deployments -n job-portal
+kubectl get services -n job-portal

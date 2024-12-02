@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: job-portal-api-feeds-service
+spec:
+  selector:
+    app: job-portal-api-feeds
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8081
+      nodePort: 30002
+  type: NodePort
+  
