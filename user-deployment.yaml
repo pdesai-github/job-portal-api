@@ -17,18 +17,39 @@ spec:
           image: pdesaidocker/pd-job-portal-api-user:v4
           ports:
             - containerPort: 8080 #port defined in image dockerfile
-          env:
-            - name: SPRING_DATASOURCE_USERNAME
-              value: admin
-            - name: SPRING_DATASOURCE_PASSWORD
-              value:
-            - name: AWS_ACCESS_KEY
-              value:
-            - name: AWS_SECRET_KEY
-              value:
-            - name: AWS_S3_BUCKET_NAME
-              value: pdjobportal
-            - name: AWS_S3_REGION
-              value: ap-south-1
-            - name: CORS_ALLOWED_ORIGINS
-              value: http://192.168.49.2:30000
+         env:
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: SPRING_DATASOURCE_PASSWORD
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: AWS_ACCESS_KEY
+        - name: AWS_SECRET_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: AWS_SECRET_KEY
+        - name: AWS_S3_BUCKET_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: AWS_S3_BUCKET_NAME
+        - name: AWS_S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: AWS_S3_REGION
+        - name: CORS_ALLOWED_ORIGINS
+          valueFrom:
+            configMapKeyRef:
+              name: job-portal-config
+              key: CORS_ALLOWED_ORIGINS
