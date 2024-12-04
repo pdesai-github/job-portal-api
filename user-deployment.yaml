@@ -2,55 +2,55 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: job-portal-api-user
-  namespace: pd-job-portal 
+  namespace: pd-job-portal
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: job-portal-api-user-label #This should be same label
+      app: job-portal-api-user-label # This should be the same label
   template:
     metadata:
       labels:
-        app: job-portal-api-user-label #This should be same label
+        app: job-portal-api-user-label # This should be the same label
     spec:
       containers:
         - name: job-portal-api-user-container
           image: pdesaidocker/pd-job-portal-api-user:v4
           ports:
-            - containerPort: 8080 #port defined in image dockerfile
-         env:
-        - name: SPRING_DATASOURCE_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: SPRING_DATASOURCE_USERNAME
-        - name: SPRING_DATASOURCE_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: SPRING_DATASOURCE_PASSWORD
-        - name: AWS_ACCESS_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: AWS_ACCESS_KEY
-        - name: AWS_SECRET_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: AWS_SECRET_KEY
-        - name: AWS_S3_BUCKET_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: AWS_S3_BUCKET_NAME
-        - name: AWS_S3_REGION
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: AWS_S3_REGION
-        - name: CORS_ALLOWED_ORIGINS
-          valueFrom:
-            configMapKeyRef:
-              name: job-portal-config
-              key: CORS_ALLOWED_ORIGINS
+            - containerPort: 8080 # Port defined in image Dockerfile
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: job-portal-configmap
+                  key: SPRING_DATASOURCE_USERNAME
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: job-portal-secrets
+                  key: SPRING_DATASOURCE_PASSWORD
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: job-portal-secrets
+                  key: AWS_ACCESS_KEY
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: job-portal-secrets
+                  key: AWS_SECRET_KEY
+            - name: AWS_S3_BUCKET_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: job-portal-configmap
+                  key: AWS_S3_BUCKET_NAME
+            - name: AWS_S3_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: job-portal-configmap
+                  key: AWS_S3_REGION
+            - name: CORS_ALLOWED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: job-portal-configmap
+                  key: CORS_ALLOWED_ORIGINS
